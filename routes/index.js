@@ -19,7 +19,7 @@ module.exports = app => {
     // 用户退出
     app.post('/logout', require('./actions/other/logout'))
     // 判断用户是否登陆
-
+    app.get('/login/status', require('./actions/other/loginStatus'))
     // 图片文件上传
 
 }
