@@ -15,7 +15,7 @@ module.exports = app => {
 
     // 其他
     // 用户登录
-    // app.use('./login', require('./actions/other/login'))
+    app.use('/login', require('./actions/other/login'))
     // 用户退出
 
     // 判断用户是否登陆
