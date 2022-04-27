@@ -11,7 +11,7 @@ const formidableMiddleware = require('express-formidable');
 // 创建服务器
 const app = express();
 // 开放静态路由
-app.use(express.static(path.join('__dirname','public')));
+app.use(express.static(path.join(__dirname, 'public')));
 // session配置
 app.use(session({
     // 生成密钥

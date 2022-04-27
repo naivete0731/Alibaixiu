@@ -60,17 +60,17 @@
           </tr>
         </thead>
         <tbody id="postsBox">
-<!--          <tr>-->
-<!--            <td>随便一个名称</td>-->
-<!--            <td>小小</td>-->
-<!--            <td>潮科技</td>-->
-<!--            <td class="text-center">2016/10/07</td>-->
-<!--            <td class="text-center">已发布</td>-->
-<!--            <td class="text-center">-->
-<!--              <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>-->
-<!--              <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>-->
-<!--            </td>-->
-<!--          </tr>-->
+         <tr>
+           <td>随便一个名称</td>
+           <td>小小</td>
+           <td>潮科技</td>
+           <td class="text-center">2016/10/07</td>
+           <td class="text-center">已发布</td>
+           <td class="text-center">
+             <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
+             <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+           </td>
+         </tr>
 
         </tbody>
       </table>
@@ -118,40 +118,7 @@
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script src="../assets/vendors/art-template/template-web.js"></script>
   <script src="../assets/js/common.js"></script>
-<!-- 文章列表数据模块 -->
-  <script type="text/html" id="postsTpl">
-  {{each data.records}}
-    <tr>
-      <td>{{$value.title}}</td>
-      <td>{{$value.author.nickName}}</td>
-      <td>{{$value.category.title}}</td>
-      <td class="text-center">{{$imports.formateDate($value.createAt)}}</td>
-      <td class="text-center">{{$value.state == 1 ? '已发布' : '未发布'}}</td>
-      <td class="text-center">
-        <a href="post-add.html?id={{$value._id}}" class="btn btn-default btn-xs">编辑</a>
-        <a href="javascript:;" class="btn btn-danger btn-xs delete" data-id="{{$value._id}}">删除</a>
-      </td>
-    </tr>
-{{/each}}
-</script>
-<!-- 分页模板 -->
-  <script type="text/html" id="pageTpl">
-    {{if page > 1}}
-    <li><a href="javascript:;" onclick="changePage({{page - 1}})">上一页</a></li>
-    {{/if}}
-    {{each display}}
-    <li><a href="javascript:;" onclick="changePage({{$value}})">{{$value}}</a></li>
-    {{/each}}
-    {{if page < pages}}
-    <li><a href="javascript:;" onclick="changePage({{page - 0 + 1}})">下一页</a></li>
-    {{/if}}
-</script>
-<!--  分类列表下拉框模板-->
-  <script type="text/html" id="categoryTpl">
-    {{each data}}
-    <option value="{{$value._id}}">{{$value.title}}</option>
-    {{/each}}
-</script>
+
 <script src="../assets/js/posts.js"></script>
 <script>NProgress.done()</script>
 </body>

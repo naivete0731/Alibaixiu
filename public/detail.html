@@ -63,30 +63,30 @@
       <div class="panel hots">
         <h3>热门推荐</h3>
         <ul id="recommendBox">
-<!--          <li>-->
-<!--            <a href="javascript:;">-->
-<!--              <img src="uploads/hots_2.jpg" alt="">-->
-<!--              <span>星球大战:原力觉醒视频演示 电影票68</span>-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li>-->
-<!--            <a href="javascript:;">-->
-<!--              <img src="uploads/hots_3.jpg" alt="">-->
-<!--              <span>你敢骑吗？全球第一辆全功能3D打印摩托车亮相</span>-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li>-->
-<!--            <a href="javascript:;">-->
-<!--              <img src="uploads/hots_4.jpg" alt="">-->
-<!--              <span>又现酒窝夹笔盖新技能 城里人是不让人活了！</span>-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li>-->
-<!--            <a href="javascript:;">-->
-<!--              <img src="uploads/hots_5.jpg" alt="">-->
-<!--              <span>实在太邪恶！照亮妹纸绝对领域与私处</span>-->
-<!--            </a>-->
-<!--          </li>-->
+         <li>
+           <a href="javascript:;">
+             <img src="uploads/hots_2.jpg" alt="">
+             <span>星球大战:原力觉醒视频演示 电影票68</span>
+           </a>
+         </li>
+         <li>
+           <a href="javascript:;">
+             <img src="uploads/hots_3.jpg" alt="">
+             <span>你敢骑吗？全球第一辆全功能3D打印摩托车亮相</span>
+           </a>
+         </li>
+         <li>
+           <a href="javascript:;">
+             <img src="uploads/hots_4.jpg" alt="">
+             <span>又现酒窝夹笔盖新技能 城里人是不让人活了！</span>
+           </a>
+         </li>
+         <li>
+           <a href="javascript:;">
+             <img src="uploads/hots_5.jpg" alt="">
+             <span>实在太邪恶！照亮妹纸绝对领域与私处</span>
+           </a>
+         </li>
         </ul>
       </div>
     </div>
@@ -100,97 +100,6 @@
   <script src="assets/js/public.js"></script>
   <script src="assets/js/detail.js"></script>
   <script src="assets/js/recommend.js"></script>
-<!--  文章详情模板-->
-  <script type="text/html" id="postTpl">
 
-      <div class="breadcrumb">
-        <dl>
-          <dt>当前位置：</dt>
-          <dd><a href="javascript:;">{{category.title}}</a></dd>
-          <dd>{{title}}</dd>
-        </dl>
-      </div>
-      <h2 class="title">
-        <a href="javascript:;">{{title}}</a>
-      </h2>
-      <div class="meta">
-        <span>{{author.nickName}} 发布于 {{$imports.formateDate(createAt)}}</span>
-        <span>分类: <a href="javascript:;">{{category.title}}</a></span>
-        <span>阅读: ({{meta.views}})</span>
-        <span>评论: ({{meta.comments}})</span>
-        <a href="javascript:;" id="like">赞</a>
-      </div>
-
-    {{content}}
-  </script>
-<!--评论模板-->
-  <script type="text/html" id="commentTpl">
-    <style type="text/css">
-      .comment {
-        margin-bottom: 20px;
-      }
-      .comment textarea{
-        box-sizing: border-box;
-        padding: 10px;
-        width: 100%;
-        height: 80px;
-        display: block;
-      }
-      .comment input {
-        width: 100px;
-        height: 30px;
-        margin-top: 10px;
-      }
-    </style>
-    <div class="comment">
-      <form>
-        <textarea></textarea>
-        <input type="submit" value="提交评论">
-      </form>
-    </div>
-</script>
-<!--所有评论模板-->
-  <script type="text/html" id="commentAllTpl">
-    <style type="text/css">
-      .commentAll {
-        margin-bottom: 20px;
-        background-color: #fff;
-        padding: 15px;
-      }
-      .commentAll #avatar {
-
-        height: 50px;
-        display: flex;
-      }
-      .commentAll #avatar img {
-        width: 100%;
-        height: 100%;
-        border-radius: 15px;
-        flex: 0;
-        margin-right: 10px;
-
-      }
-      .commentAll #avatar div {
-        flex: 1;
-
-      }
-
-    </style>
-    <div class="commentAll">
-        <h3 style="margin: 0 0 15px 5px">全部评论</h3>
-      {{each}}
-      <div id="avatar">
-        <img src="{{$value.author.avatar}}" alt="">
-        <div>
-          <p><h3 style="display: inline-block">{{$value.author.nickName}}</h3>  {{$imports.formateDate($value.createAt)}}</p>
-          <span style="display: inline-block;margin-top: 10px">{{$value.content}}</span>
-        </div>
-
-      </div>
-
-
-      {{/each}}
-    </div>
-</script>
 </body>
 </html>
