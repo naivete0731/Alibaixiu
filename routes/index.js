@@ -15,9 +15,9 @@ module.exports = app => {
 
     // 其他
     // 用户登录
-    app.use('/login', require('./actions/other/login'))
+    app.post('/login', require('./actions/other/login'))
     // 用户退出
-
+    app.post('/logout', require('./actions/other/logout'))
     // 判断用户是否登陆
 
     // 图片文件上传
