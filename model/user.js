@@ -62,7 +62,7 @@ const validateUser = user => {
         nickName: Joi.string().min(2).max(30).required().error(new Error('用户名不符合规则')),
         email: Joi.string().regex(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/).required().error(new Error( '邮箱不符合验证规则')),
         password: Joi.string().required().regex(/^[A-Za-z0-9]{6,30}$/).error(new Error('密码不符合规则')),
-        status: Joi.number().vaild(0,1),
+        status: Joi.number().valid(0,1),
         role: Joi.string().valid('normal','admin')
     };
     // 验证
