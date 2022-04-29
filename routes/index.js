@@ -21,5 +21,5 @@ module.exports = app => {
     // 判断用户是否登陆
     app.get('/login/status', require('./actions/other/loginStatus'))
     // 图片文件上传
-
+    app.post('/upload', require('./actions/other/upload'))
 }
