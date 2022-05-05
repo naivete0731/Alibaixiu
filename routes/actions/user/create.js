@@ -24,5 +24,5 @@ module.exports = async (req, res) => {
     // 保存用户
     await user.save();
     //响应
-    res.send(_.pick(user, ['_id','email','nickName','role','avater','createTime','status']))
+    res.send(_.pick(user, ['_id','email','nickName','role','avatar','createTime','status']))
 }

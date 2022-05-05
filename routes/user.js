@@ -9,4 +9,7 @@ user.get('/', require('./actions/user/find'))
 user.get('/:id', require('./actions/user/findById'))
 // 根据用户ID修改用户信息
 user.put('/:id', require('./actions/user/findByIdAndUpdate'))
+// 根据id删除用户信息
+user.delete('/:id', require('./actions/user/findByIdAndDelete'))
+
 module.exports = user;

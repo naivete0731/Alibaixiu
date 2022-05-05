@@ -35,7 +35,7 @@ const UserSchema = new Schema({
         enum: ['admin','normal']
     },
     //头像
-    avater: {
+    avatar: {
         type: String,
         default: null
     },
