@@ -82,3 +82,66 @@ $('#categoryBox').on('click', '.delete', function() {
         })
     }
 })
+
+// 获取全选按钮
+var selectAll = $('#selectAll');
+// 获取批量删除按钮
+var deleteMany = $('#deleteMany');
+// 当全选按钮发生改变后
+selectAll.on('change', function() {
+    // 获取到全选按钮当前的状态
+    var status = $(this).prop('checked');
+    if (status) {
+        // 显示批量删除
+        deleteMany.show();
+    } else {
+        // 隐藏
+        deleteMany.hide();
+    }
+    // 获取到所有用户并将用户的状态和全选按钮保持一致
+    $('#categoryBox').find('input').prop('checked',  status)
+})
+
+$('#categoryBox').on('change', '.categoriesStatus', function () {
+    // 获取到所有文章 在所有文章中过滤出选中的文章
+    // 判断选中文章的数量和所有文章的数量是否一致
+    // 如果一致 就说明所有的文章都是选中的
+    // 否则 就是有文章没有被选中
+    var inputs = $('#categoryBox').find('input');
+
+    if (inputs.length == inputs.filter(':checked').length) {
+        selectAll.prop('checked', true);
+    } else {
+        selectAll.prop('checked', false);
+    }
+    // 如果选中的复选框的数量大于0 就说明有选中的复选框
+    if (inputs.filter(':checked').length > 1) {
+        // 显示批量删除按钮
+        deleteMany.show();
+    } else {
+        // 隐藏批量删除按钮
+        deleteMany.hide();
+    }
+})
+
+// 为批量删除按钮添加点击事件
+deleteMany.on('click', function() {
+    var ids = [];
+    // 获取选中的分类
+    var checked = $('#categoryBox').find('input').filter(':checked');
+    // 循环复选框 从复选框的身上获取data-id属性
+    checked.each(function (index, item) {
+        ids.push($(item).attr('data-id'))
+    })
+    // 发送请求
+    if (confirm('确定要删除吗?')) {
+        $.ajax({
+        type: 'delete',
+        url: '/categories/' + ids.join('-'),
+        success: function(response) {
+            location.reload();
+        }
+    })
+    }
+    
+})
