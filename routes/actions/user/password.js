@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
         
 
         // 如果用户输入的密码和原始的密码一致
-        if (await bcrypt.compare(userPass, originPass)) {
+        if (await bcrypt.compare(userPass.trim(), originPass)) {
             // 如果用输入的两次相同
             if(userPass.trim().length < 6 || newPass.trim().length < 6 || confirmPass.trim().length < 6) {
                 return res.status(400).send({message: '密码不能小于6位'})
@@ -40,6 +40,7 @@ module.exports = async (req, res) => {
                    return res.status(400).send({message: '与近期的密码相同无法更改!!'})
                 }
                 // 更新密码
+
                 // 生产盐
                 const salt = await bcrypt.genSalt(10);
                 const finalPass = await bcrypt.hash(newPass, salt);

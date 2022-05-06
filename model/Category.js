@@ -35,7 +35,7 @@ const validateCategory = category => {
     //定义对象验证规则
     const schema = {
         title: Joi.string().min(2).max(30).required().error(new Error('分类不符合规则')),
-        className: Joi.string().required().error('请填写分类图标类名'),
+        className: Joi.string().required().error(new Error('请填写分类图标类名')),
         createAt: Joi.date().default(Date.now,'created time')
     }
     // 验证
