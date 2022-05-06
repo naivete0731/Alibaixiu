@@ -5,6 +5,8 @@ const user = require('express').Router();
 user.post('/', require('./actions/user/create'))
 // 查询所有用户信息
 user.get('/', require('./actions/user/find'))
+// 登陆用户密码修改
+user.put('/password', require('./actions/user/password'));
 // 根据用户ID查询用户信息
 user.get('/:id', require('./actions/user/findById'))
 // 根据用户ID修改用户信息

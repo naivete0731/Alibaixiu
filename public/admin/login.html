@@ -16,11 +16,11 @@
       </div> -->
       <div class="form-group">
         <label for="email" class="sr-only">邮箱</label>
-        <input id="email" type="email" class="form-control" placeholder="邮箱" autofocus>
+        <input id="email" type="email" class="form-control" placeholder="邮箱" autofocus value="wuxie@qq.com">
       </div>
       <div class="form-group">
         <label for="password" class="sr-only">密码</label>
-        <input id="password" type="password" class="form-control" placeholder="密码">
+        <input id="password" type="password" class="form-control" placeholder="密码" value="123456">
       </div>
       <button class="btn btn-primary btn-block" id="loginBtn">登 录</button>
     </div>
@@ -63,7 +63,11 @@
    })
    })
 
- 
+ document.addEventListener('keydown',function(key) {
+   if(key.keyCode == 13) {
+    $('#loginBtn').click();
+   }
+ })
    
  </script>
 </body>

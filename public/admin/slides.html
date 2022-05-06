@@ -21,7 +21,7 @@
       <button class="btn btn-default navbar-btn fa fa-bars"></button>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="password-reset.html"><i class="fa fa-user"></i>修改密码</a></li>
-        <li><a href="login.html"><i class="fa fa-sign-out"></i>退出</a></li>
+        <li><a href="javascript:;" id="logout"><i class="fa fa-sign-out"></i>退出</a></li>
       </ul>
     </nav>
     <div class="container-fluid">
@@ -124,6 +124,7 @@
   <script src="../assets/vendors/jquery/jquery.js"></script>
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script src="../assets/vendors/art-template/template-web.js"></script>
+
 <!--  轮播图列表模板-->
   <script type="text/html" id="slidesTpl">
     {{each data}}
@@ -138,6 +139,7 @@
     {{/each}}
   </script>
   <script src="../assets/js/slides.js"></script>
+  <script src="../assets/js/common.js"></script>
   <script>NProgress.done()</script>
 </body>
 </html>
