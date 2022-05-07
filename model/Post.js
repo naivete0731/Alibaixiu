@@ -75,11 +75,11 @@ const validatePost = post => {
     // 定义对象验证规则
     const schema = {
         title: Joi.string().min(2).max(100).required().error(new Error('文章标题不能小于2个字')),
-        state: Joi.number().valid([0, 1]).default(0, 'drafft').error('文章状态非法'),
+        state: Joi.number().valid([0, 1]).default(0, 'draft').error(new Error('文章状态非法')),
                      // any值任意类型  empty只能为字符串
         thumbnail: Joi.any().empty(),
-        content: Joi.string.min(1).max(1000).required().error(new Error('文章内容不能为空')),
-        category: Joi.string.regex(/^[0-9a-fA-F]{24}$/).required().error(new Error('分类id格式非法'))
+        content: Joi.string().min(1).max(1000).required().error(new Error('文章内容不能为空')),
+        category: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required().error(new Error('分类id格式非法'))
     }
 
     // 验证
@@ -91,6 +91,15 @@ const validatePost = post => {
     })
 }
 
+// for (let i = 0; i < 20; i++) {
+//     Post.create({
+//         title: '新疆有西八',
+//         author: '6274cd3ef48955cd4f2deb8c',
+//         state: 0,
+//         content: '新疆有西八新疆有西八新疆有西八',
+//         category: '62752937b7b56aeee54c60e3'
+//     }).then(() => console.log('文章创建成功'))
+// }
 // 导出模块成员
 module.exports = {
     Post,

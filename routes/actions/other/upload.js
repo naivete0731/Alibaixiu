@@ -3,8 +3,8 @@ module.exports = async (req, res) => {
     let imgsPath = [];
     // 如果用户上传了文件
     // console.log(req.files.avatar.type);
-    let type = req.files.avatar.type;
-    if (type == 'image/png' || type == 'image/jpeg' || type == 'image/jpg') {
+    // let type = req.files.avatar.type;
+    // if (type == 'image/png' || type == 'image/jpeg' || type == 'image/jpg') {
         if (req.files) {
         //循环结果对象
         for(let attr in req.files) {
@@ -19,8 +19,8 @@ module.exports = async (req, res) => {
     }
     // 将路径响应给客户端
     res.send(imgsPath)
-    } else {
-       return res.status(400).send({message: '请上传图片格式!!!'})
-    }
+    // } else {
+    //    return res.status(400).send({message: '请上传图片格式!!!'})
+    // }
     
 }
