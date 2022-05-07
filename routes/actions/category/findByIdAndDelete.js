@@ -2,6 +2,8 @@
 const Joi = require('joi');
 // 分类模块
 const { Category } = require('../../../model/Category');
+// 文章模块
+const { Post } = require('../../../model/Post');
 module.exports = async (req, res) => {
     // 获取用户id
     const id = req.params['id'];
@@ -23,8 +25,10 @@ module.exports = async (req, res) => {
          }
          // 通过验证
          for (const item of ids) {
-            // 删除用户
+            // 删除分类
             let category = await Category.findByIdAndDelete(item);
+            // 删除分类下的文章
+            let post = await Post.deleteMany({category: item})
             // 将删除的用户存储在数组中
             result.push(category);
          }
@@ -39,6 +43,8 @@ module.exports = async (req, res) => {
          // 通过验证
          // 删除分类
          let category = await Category.findByIdAndDelete(id);
+         // 删除分类下面的文章
+         let post = await Post.deleteMany({category: id})
          // 响应
          res.send(category)
     }
