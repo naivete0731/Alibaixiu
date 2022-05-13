@@ -29,7 +29,7 @@ const SlideSchema = new Schema({
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: [true, '评论人非法']
+        required: true
     }
 }, {versionKey: false})
 

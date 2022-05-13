@@ -7,9 +7,9 @@ module.exports = app => {
     // 文章
     app.use('/posts', require('./post'))
     // 评论
-
+    app.use('/comments', require('./comment'))
     // 轮播图
-
+    app.use('/slides', require('./slide'))
     // 网站设置
 
 

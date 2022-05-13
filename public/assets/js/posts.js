@@ -157,6 +157,7 @@ deleteMany.on('click', function() {
             url: '/posts/' + ids.join('-'),
             success: function(response) {
                 location.reload();
+            }
         })
     }
 })
