@@ -28,6 +28,7 @@ module.exports = async (req, res) => {
             // 验证
             let { error } = Joi.validate(item, schema);
             // 数据格式没有通过验证
+  
             if (error) return res.status(400).send({message: error.message})
         }
         // 通过验证
