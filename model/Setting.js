@@ -19,6 +19,16 @@ const SettingSchema = new Schema({
         minlength: 1,
         maxlength: 20
     },
+    keyword: {
+        type: String,
+        default: null,
+        maxlength: 50
+    },
+    describe: {
+        type: String,
+        default: null,
+        maxlength: 100
+    },
     // 是否开启评论功能
     comment: {
         type: Boolean,
@@ -42,7 +52,7 @@ const SettingSchema = new Schema({
 const Setting = mongoose.model('Setting', SettingSchema);
 
 // 配置数据格式校验
-const validateSetting = settings => {
+const validateSettings = settings => {
     // 定义对象严重规则
     const schema = {
         title: Joi.string().min(1).max(20).required().error(new Error('网站标题不能小于1个字符')),
@@ -60,5 +70,5 @@ const validateSetting = settings => {
 // 导出成员对象
 module.exports = {
     Setting,
-    validateSetting
+    validateSettings
 }

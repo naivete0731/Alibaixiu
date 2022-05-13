@@ -58,7 +58,7 @@ $('#slideBox').on('click', '.delete', function() {
             type: 'delete',
             url: '/slides/' + id,
             success: function(response) {
-                location.reload();
+                location.reload();  
             }
         })
     }

@@ -43,7 +43,7 @@
             <th>作者</th>
             <th>评论</th>
             <th>评论在</th>
-            <th>提交于</th>
+            <th class="text-center">提交于</th>
             <th>状态</th>
             <th class="text-center" width="100">操作</th>
           </tr>
@@ -114,7 +114,7 @@
     <td>{{$value.author.nickName}}</td>
     <td>{{$value.content}}</td>
     <td>{{$value.post.title}}</td>
-    <td>{{$value.createAt}}</td>
+    <td class="text-center">{{$imports.formateDate($value.createAt)}}</td>
     <td>{{$value.state == 0 ? '未批准' : '已批准'}}</td>
     <td class="text-center">
       <a href="javascript:;" class="btn btn-info btn-xs status" data-status="{{$value.state}}" data-id="{{$value._id}}">{{$value.state == 0 ? '批准' : '驳回'}}</a>

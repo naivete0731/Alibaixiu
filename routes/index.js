@@ -11,7 +11,7 @@ module.exports = app => {
     // 轮播图
     app.use('/slides', require('./slide'))
     // 网站设置
-
+    app.use('/settings', require('./settings'))
 
     // 其他
     // 用户登录
