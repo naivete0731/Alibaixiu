@@ -15,12 +15,12 @@ module.exports = async (req, res) => {
     // 通过验证
     // 查询文章信息
     const post = await Post.findOne({_id: id}).populate('author', '-password').populate('category')
-    if(req.session.userInfo.role != 'admin') {
+    
         // 增加文章阅读数量
         post.meta.views = post.meta.views + 1;
         // 保存
         await post.save();
-    }
+    
     // 响应
     return res.send(post);
 }

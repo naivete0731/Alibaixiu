@@ -3,7 +3,7 @@ const { Post } =require('../../../model/Post');
 
 module.exports = async (req, res) => {
     // 获取用户输入的额关键字
-    const key = req.params.id;
+    const key = req.params.key;
     // 如果用户输入了关键字
     if(key.trim().length > 0) {
         const regex = new RegExp(escapeRegex(key), 'gi');

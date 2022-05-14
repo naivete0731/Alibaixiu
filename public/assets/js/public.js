@@ -74,3 +74,26 @@ $.ajax({
         $('#TopNavBox').html(html)
     }
 })
+
+
+// 从浏览器地址获取查询参数
+function getUrlParams(name) {
+    var paramsAry = location.search.substr(1).split('&');
+
+    for (var i = 0; i < paramsAry.length; i++) {
+        var temp = paramsAry[i].split('=');
+        if (temp[0] == name) {
+            return temp[1];
+        }
+    }
+    return -1;
+}
+
+// 获取到搜索扁担 为其添加表单提交事件
+$('.search form').on('submit', function() {
+    // 获取到用户在表单中输入的关键字
+    var keys = $(this).find('.keys').val();
+    // 跳转到搜索页面 并且将用户输入的搜索关键字传递到搜索结果页面
+    location.href = '/search.html?key=' + keys;
+    return false;
+})

@@ -67,9 +67,11 @@ const PostSchema = new Schema({
 
 // 创建文章规则
 const Post = mongoose.model('Post', PostSchema);
-
 // 时间更新
-
+PostSchema.pre('findOneAndUpdate', function(next) {
+	this.findOneAndUpdate({}, { updateAt: Date.now() })
+	next();
+});
 // 文章格式校验
 const validatePost = post => {
     // 定义对象验证规则

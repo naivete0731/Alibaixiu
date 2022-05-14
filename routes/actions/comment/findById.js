@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     if (error) return res.status(400).send({message: error.message})
     // 通过验证
     // 查询评论
-    const comment = await Comment.find({post: id}).populate('author','-password')
+    const comment = await Comment.find({post: id,state: 1}).populate('author','-password').sort('-createAt')
     // 响应
     return res.send(comment);
     
