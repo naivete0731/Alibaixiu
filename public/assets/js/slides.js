@@ -32,7 +32,8 @@ $('#slidesForm').on('submit', function() {
         url: '/slides',
         data: formData,
         success: function(response) {
-            console.log(response);
+            // console.log(response);
+            location.reload();
         }
     })
     return false;
