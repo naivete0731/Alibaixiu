@@ -2,10 +2,15 @@
 const  { Post } = require('../../../model/Post')
 
 module.exports = async (req, res) => {
+    try {
     // 获取分类id
-    const id = req.params.id;
-    // 查询用户信息
-    const posts = await Post.find({category: id}).populate('author', '-password').populate('category');
-    // 响应
-    res.send(posts);
+        const id = req.params.id;
+        // 查询用户信息
+        const posts = await Post.find({category: id}).populate('author', '-password').populate('category');
+        // 响应
+        res.send(posts);
+    } catch(ex) {
+        next(ex)
+    }
+   
 }

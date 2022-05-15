@@ -29,7 +29,7 @@ $.ajax({
     url: '/users/' + userId,
     success: function(response) {
         console.log(response);
-        $('.avatar').attr('src', response.avatar);
+        $('.profile .avatar').attr('src', response.avatar);
         $('.profile .name').html(response.nickName)
     }
 })

@@ -2,8 +2,13 @@
 const { Category } = require('../../../model/Category');
 
 module.exports = async (req, res) => {
+    try {
     // 查询用户信息
-    const category = await Category.find();
-    //响应 文章分类
-    res.send(category);
+        const category = await Category.find();
+        //响应 文章分类
+        res.send(category);
+    } catch(ex) {
+        next(ex)
+    }
+   
 }

@@ -6,12 +6,16 @@ const mongoose = require('mongoose');
 const path = require('path');
 //引入session模块
 var session = require('express-session');
+// const template = require('art-template');
 /// 处理文件上传
 const formidableMiddleware = require('express-formidable');
 // 创建服务器
 const app = express();
+
 // 开放静态路由
 app.use(express.static(path.join(__dirname, 'public')));
+// 告诉express框架模板的默认后缀是什么
+
 // session配置
 app.use(session({
     // 生成密钥
@@ -35,9 +39,29 @@ app.use(formidableMiddleware({
 }))
 
 require('./model/connent');
-
 //路由
+// app.use('/',require('./routes'));
 require('./routes')(app);
+app.use((err,req,res,next) => {
+    res.status(500).send(err.message)
+})
+app.use((req,res,next) => {
+    res.status(404).redirect(path.join('404.html'))
+})
+// app.get('/siwa', (req, res) => {
+//     // 生成错误
+//     throw new Error('程序发生了错误')
+// })
+// 以/(斜杠)传参方式
+// app.get('/index/:id/:name/:sex', (req, res) => {
+//     //接收 
+//     res.send(req.params);
+// })
 //返回系统监听
 app.listen(3000)
 console.log('服务器启动成功');
+
+
+
+// 改善请求以/的方式传参
+// 用 try catch 

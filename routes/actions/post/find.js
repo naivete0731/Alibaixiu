@@ -6,24 +6,29 @@ const _ = require('lodash');
 const { cond } = require('lodash');
 
 module.exports = async (req, res) => {
-    // 当前页
-    let page = +req.query.page;
-    // console.log(page);
-    // 如果页码没有传递
-    if (!page || !_.isNumber(page)) page = 1;
-    // 查询条件
-    let condition = {};
-    // 分类条件
-    if (req.query.category != undefined) {
-        condition.category = req.query.category;
+    try {
+        // 当前页
+            let page = +req.query.page;
+            // console.log(page);
+            // 如果页码没有传递
+            if (!page || !_.isNumber(page)) page = 1;
+            // 查询条件
+            let condition = {};
+            // 分类条件
+            if (req.query.category != undefined) {
+                condition.category = req.query.category;
+            }
+            // 状态条件
+            if (req.query.state != undefined) {
+                condition.state = req.query.state;
+            }
+            // console.log(condition);
+            // 查询用户信息
+            const posts = await pagination(Post).page(page).size(10).display(5).find(condition).populate('author', '-password').populate('category').select('-content -meta').sort('-updateAt').exec();
+            // 响应
+            res.send(posts);
+    } catch(ex) {
+        next(ex)
     }
-    // 状态条件
-    if (req.query.state != undefined) {
-        condition.state = req.query.state;
-    }
-    // console.log(condition);
-    // 查询用户信息
-	const posts = await pagination(Post).page(page).size(10).display(5).find(condition).populate('author', '-password').populate('category').select('-content -meta').exec();
-    // 响应
-    res.send(posts);
+    
 }

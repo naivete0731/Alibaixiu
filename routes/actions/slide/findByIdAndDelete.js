@@ -12,21 +12,26 @@ const { promisify } = require('util');
 const unlink = promisify(fs.unlink);
 
 module.exports = async (req, res) => {
-    // 获取轮播id
-    const id = req.params['id'];
-    // 验证模型
-    const schema = Joi.string().required().regex(/^[0-9a-fA-F]{24}$/).error(new Error('轮播id非法'))
-    // 验证
-    const { error } = Joi.validate(id, schema);
-    // 数据没有通过
-    if (error) return res.status(400).send({message: error.message})
-    // 通过验证
-    let slide = await Slide.findByIdAndDelete(id);
-    // 如果缩略图存在
-    if (slide.image) {
-        // 删除
-        await unlink(path.join(__dirname, '../','../','../','public', slide.image))
+    try {
+        // 获取轮播id
+            const id = req.params['id'];
+            // 验证模型
+            const schema = Joi.string().required().regex(/^[0-9a-fA-F]{24}$/).error(new Error('轮播id非法'))
+            // 验证
+            const { error } = Joi.validate(id, schema);
+            // 数据没有通过
+            if (error) return res.status(400).send({message: error.message})
+            // 通过验证
+            let slide = await Slide.findByIdAndDelete(id);
+            // 如果缩略图存在
+            if (slide.image) {
+                // 删除
+                await unlink(path.join(__dirname, '../','../','../','public', slide.image))
+            }
+            // 响应
+            res.send(slide);
+    } catch(ex) {
+        next(ex)
     }
-    // 响应
-    res.send(slide);
+   
 }

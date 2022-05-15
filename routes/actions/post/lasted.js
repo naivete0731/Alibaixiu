@@ -2,8 +2,13 @@
 const { Post } = require('../../../model/Post');
 
 module.exports = async (req, res) => {
+    try {
     // 查询文章信息
-    const posts = await Post.find({state: 1}).sort('-createAt').populate('author', '-password').populate('category').limit(5);
-    // 响应
-    res.send(posts);
+        const posts = await Post.find({state: 1}).sort('-createAt').populate('author', '-password').populate('category').limit(5);
+        // 响应
+        res.send(posts);
+    } catch(ex) {
+        next(ex)
+    }
+    
 }

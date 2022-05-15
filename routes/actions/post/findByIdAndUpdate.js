@@ -10,8 +10,9 @@ const { promisify } = require('util');
 // 删除文件
 const unlink = promisify(fs.unlink);
 
-module.exports = async (req, res) => {
-    // 要修改的文章id
+module.exports = async (req, res,next) => {
+    try {
+         // 要修改的文章id
     const id = req.params['id'];
     // 验证规则
     const schema = Joi.string().required().regex(/^[0-9a-fA-F]{24}$/).error(new Error('文章id非法'))
@@ -29,4 +30,8 @@ module.exports = async (req, res) => {
     let post = await Post.findByIdAndUpdate(id, {$set: req.fields}, {new: true, fields: '-password'})
     
     res.send(post);
+    } catch(ex) {
+        next(ex)
+    }
+   
 }
