@@ -7,6 +7,10 @@ const path = require('path');
 //引入session模块
 var session = require('express-session');
 // const template = require('art-template');
+// 引入morgan模块
+const morgan = require('morgan');
+// 引入config模块
+const config = require('config');
 /// 处理文件上传
 const formidableMiddleware = require('express-formidable');
 // 创建服务器
@@ -39,8 +43,20 @@ app.use(formidableMiddleware({
 }))
 
 require('./model/connent');
+
+// console.log(process.env);
+
+if (process.env.NODE_ENV == 'development') {
+    // 开发环境
+    console.log('is the development');
+    // 在开发环境中 将客户端发送到服务器端的请求信息打印到控制台中
+    app.use(morgan('dev'))
+} else {
+    // 生产环境
+    console.log('is the production');
+    app.use(morgan('dev'))
+}
 //路由
-// app.use('/',require('./routes'));
 require('./routes')(app);
 app.use((err,req,res,next) => {
     res.status(500).send(err.message)

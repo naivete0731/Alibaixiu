@@ -1,0 +1,6 @@
+{
+    "db": {
+        "user": "APP_USER",
+        "pwd": "APP_PASSWORD"
+    }
+}

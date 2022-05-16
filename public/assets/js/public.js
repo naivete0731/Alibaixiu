@@ -1,4 +1,21 @@
-
+// 获取网站的配置信息
+$.ajax({
+  teyp: 'get',
+  url: '/settings',
+  success: function(response) {
+      review = response.review;
+      // console.log(response);
+      // 判断是否开启评论功能
+      console.log(response);
+      document.title = response.title;
+      let icon = document.querySelector("link")
+      icon.href = response.logo;
+      let keyword = document.querySelector('meta[name="keywords"]')
+      keyword.content = response.keyword;
+      let describe = document.querySelector('meta[name="description"]')
+      describe.content = response.describe;
+  }
+})
 // 处理日期时间格式
 function formateDate(date) {
     // 将日期时间字符串转换成日期对象  因为在模板中传递过来德是字符串
