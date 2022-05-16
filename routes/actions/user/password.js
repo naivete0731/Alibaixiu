@@ -5,7 +5,8 @@ const bcrypt = require('bcrypt');
 const Joi = require('joi');
 
 module.exports = async (req, res) => {
-    // 判断用户是否处于登陆状态
+ try {
+        // 判断用户是否处于登陆状态
     if (req.session.userInfo) {
         // 验证原始
         const originPass = req.session.userInfo.password;
@@ -57,5 +58,8 @@ module.exports = async (req, res) => {
     } else {
         res.status(400).send({message: '请登录'})
     }
+ } catch(ex) {
+     next(ex)
+ }
 
 }

@@ -14,7 +14,8 @@ const { promisify } = require('util')
 const unlink = promisify(fs.unlink);
 
 module.exports = async (req, res) => {
-    // 将密码 邮箱字段刨除
+    try {
+        // 将密码 邮箱字段刨除
     req.fields = _.pick(req.fields, ['nickName', 'role', 'status', 'avatar']);
     // console.log(req.fields);
     req.fields._id = req.params['id'];
@@ -41,4 +42,7 @@ module.exports = async (req, res) => {
     let user = await User.findByIdAndUpdate(req.fields._id, {$set: req.fields}, {new: true, fields: '-password'})
     // 响应
     res.send(user);
+    } catch(ex) {
+        next(ex)
+    }
 }
