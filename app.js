@@ -11,7 +11,8 @@ var session = require('express-session');
 const morgan = require('morgan');
 // 引入config模块
 const config = require('config');
-/// 处理文件上传
+const MongoStore = require('connect-mongo');
+// 处理文件上传
 const formidableMiddleware = require('express-formidable');
 // 创建服务器
 const app = express();
@@ -30,7 +31,10 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         maxAge: 25 * 60 * 60 * 1000
-    }
+    },
+store: MongoStore.create({
+	mongoUrl: `mongodb://${config.get('db.user')}:${config.get('db.pwd')}@localhost:27017/alibaixiu`
+	})
 }))
 // 处理post请求
 app.use(formidableMiddleware({
@@ -42,7 +46,7 @@ app.use(formidableMiddleware({
     keepExtensions: true
 }))
 
-require('./model/connent');
+require('./model/connect');
 
 // console.log(process.env);
 

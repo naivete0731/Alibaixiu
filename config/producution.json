@@ -1,7 +1,7 @@
 {
     "title": "生产环境",
     "db": {
-        "host": "localhost",
+        "host": "localhost", 
         "port": "27017",
         "name": "alibaixiu"
     }
