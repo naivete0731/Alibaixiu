@@ -125,19 +125,7 @@
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script src="../assets/vendors/art-template/template-web.js"></script>
 
-<!--  轮播图列表模板-->
-  <script type="text/html" id="slidesTpl">
-    {{each data}}
-    <tr>
-      <td class="text-center"><img class="slide" src="{{$value.image}}"></td>
-      <td>{{$value.title}}</td>
-      <td>{{$value.link}}</td>
-      <td class="text-center">
-        <a href="javascript:;" class="btn btn-danger btn-xs delete" data-id="{{$value._id}}">删除</a>
-      </td>
-    </tr>
-    {{/each}}
-  </script>
+
   <script src="../assets/js/slides.js"></script>
   <script src="../assets/js/common.js"></script>
   <script>NProgress.done()</script>

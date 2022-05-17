@@ -1,15 +1,42 @@
+// 评论列表模板
+var commentsTpl = `{{each records}}
+<tr> <!--class="danger" -->
+ <td class="text-center">
+   <input type="checkbox" data-status="{{$value.state}}" class="commentStatus" data-id="{{$value._id}}" >
+ </td>
+ <td>{{$value.author.nickName}}</td>
+ <td>{{$value.content}}</td>
+ <td>{{$value.post.title}}</td>
+ <td class="text-center">{{$imports.formateDate($value.createAt)}}</td>
+ <td>{{$value.state == 0 ? '未批准' : '已批准'}}</td>
+ <td class="text-center state">
+   <a href="javascript:;" class="btn btn-info btn-xs status" data-status="{{$value.state}}" data-id="{{$value._id}}">{{$value.state == 0 ? '批准' : '驳回'}}</a>
+   <a href="javascript:;" class="btn btn-danger btn-xs delete" data-id="{{$value._id}}">删除</a>
+ </td>
+</tr>
+{{/each}}`;
 
+// 分页模板
+
+var pageTpl = `
+{{if page > 1}}
+<li><a href="javascript:;" onclick="changePage({{page - 1}})">上一页</a></li>
+{{/if}}
+{{each display}}
+     <li><a href="javascript:;" onclick="changePage({{$value}})">{{$value}}</a></li>
+{{/each}}
+{{if page < pages}}
+     <li><a href="javascript:;" onclick="changePage({{page - 0 + 1}})">下一页</a></li>
+{{/if}}`;
 
 // 获取评论列表数据
 $.ajax({
     type: 'get',
     url: '/comments',
     success: function(response) {
-        console.log(response);
-        var html = template('commentsTpl', response);
-        // console.log(html);
+        var html = template.render(commentsTpl, response);
         $('#commentsBox').html(html)
-        var page = template('pageTpl', response);
+        var page = template.render(pageTpl, response);
         $('#pageBox').html(page);
     }
 })
@@ -24,9 +51,9 @@ function changePage(page) {
         },
         success: function(response) {
             console.log(response);
-            var html = template('commentsTpl', response);
+            var html = template.render(commentsTpl, response);
             $('#commentsBox').html(html);
-            var page = template('pageTpl', response);
+            var page = template.render(pageTpl, response);
             $('#pageBox').html(page);
         }
     })
@@ -186,9 +213,9 @@ $('#filterForm').on('submit', function() {
         url: '/comments',
         data: formData,
         success: function(response) {
-            let html = template('commentsTpl', response)
+            var html = template.render(commentsTpl, response);
             $('#commentsBox').html(html);
-            let page = template('pageTpl', response)
+            var page = template.render(pageTpl, response);
             $('#pageBox').html(page);
             $('#btnAll').show();
         }
@@ -201,9 +228,9 @@ $('#btnAll').on('click', function() {
         type: 'get',
         url: '/comments',
         success: function(response) {
-            let html = template('commentsTpl', response);
+            var html = template.render(commentsTpl, response);
             $('#commentsBox').html(html);
-            let page = template('pageTpl', response)
+            var page = template.render(pageTpl, response);
             $('#pageBox').html(page)
             $('#btnAll').hide();
         }

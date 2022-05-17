@@ -44,7 +44,19 @@ $.ajax({
     type: 'get',
     url: '/slides',
     success: function(response) {
-        var html = template('slidesTpl', {data: response})
+        // 轮播图列表模板
+        var slidesTpl = `
+        {{each data}}
+        <tr>
+          <td class="text-center"><img class="slide" src="{{$value.image}}"></td>
+          <td>{{$value.title}}</td>
+          <td>{{$value.link}}</td>
+          <td class="text-center">
+            <a href="javascript:;" class="btn btn-danger btn-xs delete" data-id="{{$value._id}}">删除</a>
+          </td>
+        </tr>
+        {{/each}}`
+        var html = template.render(slidesTpl, {data: response})
         $('#slideBox').html(html)
     }
 })

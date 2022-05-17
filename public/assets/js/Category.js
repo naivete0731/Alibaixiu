@@ -23,8 +23,20 @@ $.ajax({
     type: 'get',
     url: '/categories',
     success: function(response) {
-        // console.log(response);
-        var html = template('categoryListTpl', {data: response});
+        // 分类列表模板
+        var categoryListTpl = `
+        {{each data}}
+        <tr>
+          <td class="text-center"><input type="checkbox" class="categoriesStatus" data-id="{{$value._id}}"></td>
+          <td>{{$value.title}}</td>
+          <td>{{$value.className}}</td>
+          <td class="text-center">
+            <a href="javascript:;" class="btn btn-info btn-xs edit" data-id="{{$value._id}}">编辑</a>
+            <a href="javascript:;" class="btn btn-danger btn-xs delete" data-id="{{$value._id}}">删除</a>
+          </td>
+        </tr>
+        {{/each}}`
+        var html = template.render(categoryListTpl, {data: response});
         // console.log(html);
         $('#categoryBox').html(html);
     }
@@ -39,8 +51,24 @@ $('#categoryBox').on('click', '.edit', function() {
         type: 'get',
         url: '/categories/' + id,
         success: function(response) {
-            // console.log(response);
-            let html = template('modifyCategoryTpl', response);
+            // 分类修改数据模板
+            var modifyCategoryTpl = `
+            
+      <form id="modifyCategory" data-id="{{_id}}">
+      <h2>添加分类</h2>
+      <div class="form-group">
+        <label>名称</label>
+        <input value="{{title}}" class="form-control" name="title" type="text" placeholder="请输入分类名称">
+      </div>
+      <div class="form-group">
+        <label>图标</label>
+        <input value="{{className}}" class="form-control" name="className" type="text" placeholder="请输入分类图标类名">
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">修改</button>
+      </div>
+    </form>`
+            let html = template.render(modifyCategoryTpl, response);
             $('#formBox').html(html);
         },
         error: function(response) {

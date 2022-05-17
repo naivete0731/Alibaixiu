@@ -3,7 +3,12 @@ $.ajax({
     type: 'get',
     url: '/categories',
     success: function(response) {
-        let html = template('categoryTpl', {data: response})
+        // 文章所属分类下拉列表
+        var categoryTpl = `
+        {{each data}}
+        <option value="{{$value._id}}">{{$value.title}}</option>
+    {{/each}}`
+        let html = template.render(categoryTpl, {data: response})
         $('#category').html(html);
     }
 })
@@ -68,8 +73,52 @@ if (id != -1) {
                 type: 'get',
                 success: function (categories) {
                     response.categories = categories;
-                    console.log(response)
-                    var html = template('modifyTpl', response);
+                    // 修改文章信息模板
+                    var modifyTpl = `
+                    <form class="row" id="modifyForm" data-id={{_id}}>
+                    <div class="col-md-9">
+                      <div class="form-group">
+                        <label for="title">标题</label>
+                        <input id="title" class="form-control input-lg" type="text" placeholder="文章标题" name="title" value="{{title}}">
+                      </div>
+                      <div class="form-group">
+                        <label for="content">内容</label>
+                        <textarea id="content" class="form-control input-lg" cols="30" rows="10" placeholder="内容" name="content">{{content}}</textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="feature">文章封面</label>
+                        <!-- show when image chose -->
+                        <img class="help-block thumbnail" style="display: none">
+                        <input id="feature" class="form-control" type="file">
+                        <input type="hidden" name="thumbnail" id="thumbnail" value="{{thumbnail}}">
+                      </div>
+                      <div class="form-group">
+                        <label for="category">所属分类</label>
+                        <select id="category" class="form-control" name="category">
+                          {{each categories}}
+                          <option {{category == $value._id ? "selected" : ""}} value="{{$value._id}}">{{$value.title}}</option>
+                          {{/each}}
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="created">发布时间</label>
+                        <input id="created" class="form-control" type="date" name="createAt" value="{{createAt.split('T')[0]}}">
+                      </div>
+                      <div class="form-group">
+                        <label for="status">状态</label>
+                        <select id="status" class="form-control" name="state">
+                          <option value="0" {{state == 0 ? "selected": ""}}>草稿</option>
+                          <option value="1" {{state == 1 ? "selected": ""}}>已发布</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <button class="btn btn-primary" type="submit">修改</button>
+                      </div>
+                    </div>
+                  </form>`
+                    var html = template.render(modifyTpl, response);
                     // console.log(html)
                     $('#parentBox').html(html);
                     if (response.thumbnail) {

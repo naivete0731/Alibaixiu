@@ -1,12 +1,49 @@
+// 文章列表数据模板
+var postTpl = `{{each data.records}}
+    <tr>
+      <td class="text-center">
+        <input type="checkbox" class="postStatus" data-id="{{$value._id}}">
+      </td>
+      <td>{{$value.title}}</td>
+      <td>{{$value.author.nickName}}</td>
+      <td>{{$value.category.title}}</td>
+      <td class="text-center">{{$imports.formateDate($value.createAt)}}</td>
+      <td class="text-center">{{$value.state == 1 ? '已发布' : '未发布'}}</td>
+      <td class="text-center">
+        <a href="post-add.html?id={{$value._id}}" class="btn btn-default btn-xs">编辑</a>
+        <a href="javascript:;" class="btn btn-danger btn-xs delete" data-id="{{$value._id}}">删除</a>
+      </td>
+    </tr>
+    {{/each}}
+    {{if data.total == 0}}
+      <h2>筛选的内容不存在</h2>
+    {{/if}}`;
+// 分页模板
+var pageTpl = `
+    {{if page > 1}}
+    <li><a href="javascript:;" onclick="changePage({{page - 1}})">上一页</a></li>
+    {{/if}}
+    {{each display}}
+    <li><a href="javascript:;" onclick="changePage({{$value}})">{{$value}}</a></li>
+    {{/each}}
+    {{if page < pages}}
+    <li><a href="javascript:;" onclick="changePage({{page - 0 + 1}})">下一页</a></li></pages>
+    {{/if}}`;
+    // 文章列表下拉框模板
+var categoryTpl = `
+    {{each data}}
+      <option value="{{$value._id}}">{{$value.title}}</option>
+      {{/each}}`;
+
 // 向服务器发送请求
 $.ajax({
     type: 'get',
     url: '/posts',
     success: function(response) {
         // console.log(response);
-        let html = template('postsTpl', {data: response});
+        let html = template.render(postTpl, {data: response});
         $('#postsBox').html(html);
-        let page = template('pageTpl', response);
+        let page = template.render(pageTpl, response);
         $('#page').html(page);
     }
 })
@@ -17,9 +54,9 @@ $('#btnAll').on('click', function() {
         type: 'get',
         url: '/posts',
         success: function(response) {
-            let html = template('postsTpl', {data: response})
+            let html = template.render(postTpl, {data: response});
             $('#postsBox').html(html);
-            let page = template('pageTpl', response);
+            let page = template.render(pageTpl, response);
             $('#page').html(page)
             $('#btnAll').hide();
         }
@@ -30,7 +67,7 @@ $.ajax({
     type: 'get',
     url: '/categories',
     success: function(response) {
-        let html = template('categoryTpl', {data: response})
+        let html = template.render(categoryTpl, {data: response})
         $('#categoryBox').html(html)
     }
 }) 
@@ -47,9 +84,9 @@ function changePage(page) {
         success: function(response) {
             // console.log(response);
            
-            let html = template('postsTpl', {data: response})
+            let html = template.render(postTpl, {data: response});
             $('#postsBox').html(html);
-            let page = template('pageTpl', response);
+            let page = template.render(pageTpl, response);
             $('#page').html(page);
         }
     })
@@ -65,9 +102,9 @@ $('#filterForm').on('submit', function() {
         url: '/posts',
         data: formData,
         success: function(response) {
-            let html = template('postsTpl', {data: response})
+            let html = template.render(postTpl, {data: response});
             $('#postsBox').html(html);
-            let page = template('pageTpl', response);
+            let page = template.render(pageTpl, response);
             $('#page').html(page);
             $('#btnAll').show();
         }

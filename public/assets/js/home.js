@@ -3,7 +3,16 @@ $.ajax({
     type: 'get',
     url: '/slides',
     success: function(response) {
-        let html = template('slidesTpl', {data: response})
+        // 轮播数据模板
+        var slidesTpl = ` {{each data}}
+        <li>
+          <a href="/detail.html?id={{$value.link}}">
+            <img src="{{$value.image}}">
+            <span>{{$value.title}}</span>
+          </a>
+        </li>
+        {{/each}}`;
+        let html = template.render(slidesTpl, {data: response})
         $('#slidesBox').html(html);
 
         // 轮播图
@@ -47,8 +56,35 @@ $.ajax({
     type: 'get',
     url: '/posts/lasted',
     success: function (response) {
-        // console.log(response)
-        var html = template('lastedTpl', {data: response});
+        //最新发布数据模块
+        var lastedTpl = ` 
+        {{each data}}
+        <div class="entry">
+          <div class="head">
+            <span class="sort">{{$value.category.title}}</span>
+            <a href="detail.html?id={{$value._id}}"{{$value.title}}</a>
+          </div>
+          <div class="main">
+            <p class="info">{{$value.author.nickName}} 发表于 {{$imports.formateDate($value.createAt)}}</p>
+            <p class="brief">{{$value.content.substr(0, 80)}}</p>
+            <p class="extra">
+              <span class="reading">阅读({{$value.meta.views}})</span>
+              <span class="comment">评论({{$value.meta.comments}})</span>
+              <a href="detail.html?id={{$value._id}}" class="like">
+                <i class="fa fa-thumbs-up"></i>
+                <span>赞({{$value.meta.likes}})</span>
+              </a>
+              <a href="detail.html?id={{$value._id}}" class="tags">
+                分类：<span>{{$value.category.title}}</span>
+              </a>
+            </p>
+            <a href="detail.html?id={{$value._id}}" class="thumb">
+              <img src="{{$value.thumbnail}}" alt="">
+            </a>
+          </div>
+        </div>
+        {{/each}}`
+        var html = template.render(lastedTpl, {data: response});
         $('#lastedBox').html(html);
     }
 })

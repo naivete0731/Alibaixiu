@@ -99,3 +99,5 @@ console.log('服务器启动成功');
 
 // 改善请求以/的方式传参
 // 用 try catch 
+// 把模板放到后台
+// 改用express-art-template模板渲染页面
