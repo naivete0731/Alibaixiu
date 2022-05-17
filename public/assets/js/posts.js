@@ -117,6 +117,11 @@ selectAll.on('change', function() {
     }
     // 获取到所有的用户并将用户的状态和全选按钮保持一致
     $('#postsBox').find('input').prop('checked', status);
+
+    $('.All').show().html('以全选 ' + $('#postsBox').find('input').filter(':checked').length)
+    if($('#postsBox').find('input').filter(':checked').length == 0) {
+        $('.All').hide();
+    }
 })
 
 // 当文章前面的复选框状态发生改变时
@@ -138,6 +143,13 @@ $('#postsBox').on('change', '.postStatus', function() {
     } else {
         // 隐藏
         deleteMany.hide();
+    }
+
+    // 全选提示
+    $('.All').show().html('以全选 ' +inputs.filter(':checked').length)
+
+    if (inputs.filter(':checked').length == 0) {
+        $('.All').hide();
     }
 })
 

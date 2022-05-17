@@ -4,6 +4,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 //引入路径处理模块
 const path = require('path');
+// 引入文件模块
+const fs = require('fs');
 //引入session模块
 var session = require('express-session');
 // const template = require('art-template');
@@ -61,7 +63,19 @@ if (process.env.NODE_ENV == 'development') {
     app.use(morgan('dev'))
 }
 //路由
+
 require('./routes')(app);
+
+app.set('trust proxy', true);// 设置以后，req.ips是ip数组；如果未经过代理，则为[]. 若不设置，则req.ips恒为[]
+// 获取IP地址
+app.use(function(req, res){
+  console.log("x-forwarded-for    = " + req.header('x-forwarded-for'));// 各阶段ip的CSV, 最左侧的是原始ip
+  console.log("ips                          = " + JSON.stringify(req.ips));// 相当于(req.header('x-forwarded-for') || '').split(',')
+  console.log("remote Address     = " + req.connection.remoteAddress);// 未发生代理时，请求的ip
+  console.log("ip                            = " + req.ip);// 同req.connection.remoteAddress, 但是格式要好一些
+  res.send('Hello World');
+});
+
 app.use((err,req,res,next) => {
     res.status(500).send(err.message)
 })
